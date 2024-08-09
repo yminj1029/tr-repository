@@ -1,9 +1,19 @@
-import Image from 'next/image';
+'use client';
+import { useRouter } from 'next/navigation';
+import { useLayoutEffect } from 'react';
 
 export default function Home() {
+	const token: Boolean = true;
+	const route = useRouter();
+	useLayoutEffect(() => {
+		if (token === true) {
+			return route.replace('/main');
+		}
+	}, []);
+	console.log(route);
 	return (
-		<main className="flex min-h-screen flex-col items-center justify-between p-24">
-			<div>에공.. 첫걸음..!</div>
+		<main className="flex  flex-col items-center justify-between p-12">
+			환영합니다.
 		</main>
 	);
 }
