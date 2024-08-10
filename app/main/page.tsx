@@ -11,7 +11,7 @@ export default function Main() {
 			<div className="flex flex-col gap-4">
 				<ul className="flex flex-col gap-4 mb-8">
 					<li id="1" className="flex gap-4 items-center justify-center">
-						<span>A</span>
+						<span>TYPE 1</span>
 						<span>
 							<input
 								id="price"
@@ -23,7 +23,7 @@ export default function Main() {
 						</span>
 					</li>
 					<li id="2" className="flex gap-4 items-center justify-center">
-						<span>B</span>
+						<span>TYPE 2</span>
 						<span>
 							<input
 								id="price"
@@ -35,7 +35,7 @@ export default function Main() {
 						</span>
 					</li>
 					<li id="3" className="flex gap-4 items-center justify-center">
-						<span>C</span>
+						<span>TYPE 3</span>
 						<span>
 							<input
 								id="price"
@@ -47,7 +47,7 @@ export default function Main() {
 						</span>
 					</li>
 					<li id="4" className="flex gap-4 items-center justify-center">
-						<span>D</span>
+						<span>TYPE 4</span>
 						<span>
 							<input
 								id="price"
@@ -59,7 +59,7 @@ export default function Main() {
 						</span>
 					</li>
 					<li id="5" className="flex gap-4 items-center justify-center">
-						<span>E</span>
+						<span>TYPE 5</span>
 						<span>
 							<input
 								id="price"
@@ -71,7 +71,7 @@ export default function Main() {
 						</span>
 					</li>
 					<li id="6" className="flex gap-4 items-center justify-center">
-						<span>F</span>
+						<span>TYPE 6</span>
 						<span>
 							<input
 								id="price"
@@ -83,7 +83,7 @@ export default function Main() {
 						</span>
 					</li>
 					<li id="7" className="flex gap-4 items-center justify-center">
-						<span>G</span>
+						<span>TYPE 7</span>
 						<span>
 							<input
 								id="price"
@@ -95,7 +95,7 @@ export default function Main() {
 						</span>
 					</li>
 					<li id="8" className="flex gap-4 items-center justify-center">
-						<span>H</span>
+						<span>TYPE 8</span>
 						<span>
 							<input
 								id="price"
@@ -107,7 +107,7 @@ export default function Main() {
 						</span>
 					</li>
 					<li id="9" className="flex gap-4 items-center justify-center">
-						<span>I</span>
+						<span>TYPE 9</span>
 						<span>
 							<input
 								id="price"
@@ -120,6 +120,7 @@ export default function Main() {
 					</li>
 				</ul>
 
+				<div>복사란...</div>
 				<button
 					className="w-full p-2 bg-indigo-600 text-white rounded-md"
 					onClick={navigateToTestResult}
