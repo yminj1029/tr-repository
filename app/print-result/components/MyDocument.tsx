@@ -6,24 +6,33 @@ import {
 	View,
 	Document,
 	StyleSheet,
+	Svg,
+	Rect,
 } from '@react-pdf/renderer';
+import DocTest from './DocTest';
 
 const MyDocument: React.FC = () => (
 	<Document>
-		<Page style={styles.page}>
+		<Page style={styles.page} size="A4">
 			<View style={styles.section}>
-				<Text>This is a section within the page.</Text>
+				<Text>
+					<div>This is a section within the page.</div>
+					{/* <DocTest /> */}
+				</Text>
 			</View>
-			<View style={styles.section}>
+			<Svg>
+				<Rect width="480" height="240" fill="#3d87fb" />
+			</Svg>
+			{/* <View style={styles.section}>
 				<Text>This is another section within the page.</Text>
-			</View>
+			</View> */}
 		</Page>
 	</Document>
 );
 
 const styles = StyleSheet.create({
 	page: {
-		flexDirection: 'row',
+		flexDirection: 'column',
 		backgroundColor: '#E4E4E4',
 	},
 	section: {
