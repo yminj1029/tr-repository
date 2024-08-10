@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+input {
+  transform: scale(1); /* 확대/축소를 방지 */
+  transform-origin: top left; /* 변환의 기준점을 설정 */
+}
+
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

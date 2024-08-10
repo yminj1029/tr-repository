@@ -24,6 +24,7 @@ const NumberInput: React.FC<NumberInputProps> = ({ typeData }) => {
 	};
 
 	return (
+		//@ts-ignore
 		<Input
 			color="indigo"
 			size="lg"
@@ -32,7 +33,7 @@ const NumberInput: React.FC<NumberInputProps> = ({ typeData }) => {
 				className: 'hidden',
 			}}
 			placeholder={placeholderText}
-			className="!border-blue-gray-200 focus:!border-indigo-500 focus:!border-t-indigo-500 "
+			className="text-lg !border-blue-gray-200 focus:!border-indigo-500 focus:!border-t-indigo-500 "
 			value={inputValue}
 			onChange={handleChange}
 		/>
