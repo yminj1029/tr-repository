@@ -12,6 +12,9 @@ const config: Config = {
 		colors: {
 			slate: '#f8fafc',
 		},
+		minWidth: {
+			'220': '220px',
+		},
 	},
 	plugins: [require('@tailwindcss/typography')],
 };

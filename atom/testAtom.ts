@@ -37,6 +37,7 @@ export const updateTestAtom = atom(
 	null,
 	(get, set, newValue: typeNumberData) => {
 		const currentState = get(testAtom);
+
 		const dynamicObject = {
 			[`TYPE_${newValue.typeNumber}`]: newValue.result,
 		};
@@ -44,16 +45,3 @@ export const updateTestAtom = atom(
 		set(testAtom, { ...currentState, ...dynamicObject });
 	},
 );
-
-// 객체를 정렬하는 함수
-// export const sortObjectByValue = (obj: Test): Test => {
-// 	const entries = Object.entries(obj);
-
-// 	// value 값에 따라 배열을 정렬
-// 	const sortedEntries = entries.sort(
-// 		([, valueA], [, valueB]) => valueA - valueB,
-// 	);
-
-// 	// 정렬된 배열을 다시 객체로 변환
-// 	return Object.fromEntries(sortedEntries) as Test;
-// };

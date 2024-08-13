@@ -1,6 +1,6 @@
 export default function SideNavigation() {
 	return (
-		<nav className="hidden lg:block bg-gray-800 w-64 ">
+		<nav className="hidden lg:block bg-gray-800 min-w-220 ">
 			<div className="h-14 bg-gray-100 font-bold text-2xl  flex justify-center items-center">
 				TREPOGIT
 			</div>

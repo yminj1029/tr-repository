@@ -1,7 +1,14 @@
 module.exports = {
 	extends: ['next/core-web-vitals', 'plugin:prettier/recommended'],
 	// plugins: ['prettier', 'unused-imports'],
+	env: {
+		node: true, // Node.js 환경을 활성화합니다.
+		browser: true, // 만약 브라우저 환경도 고려해야 한다면 추가
+	},
 	plugins: ['prettier'],
+	globals: {
+		NodeJS: 'readonly', // NodeJS를 읽기 전용 전역 변수로 정의
+	},
 	rules: {
 		// 선언되지 않은 변수 또는 임포트 구문 정리 규칙
 		'no-undef': 'error',

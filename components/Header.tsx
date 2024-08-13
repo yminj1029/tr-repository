@@ -120,7 +120,7 @@ export default function Header() {
 			</div>
 
 			<DisclosurePanel className="lg:hidden bg-gray-800">
-				<div className="space-y-1 px-2 pb-3 pt-2">
+				<div className="space-y-1 px-2 pb-3 pt-2 z-10">
 					<DisclosureButton
 						key="test-result"
 						as="a"

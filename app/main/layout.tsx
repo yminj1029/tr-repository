@@ -9,9 +9,9 @@ export default function MainLayout({
 }>) {
 	return (
 		<div className="flex h-screen">
-			<SideNavigation />
+			{/* <SideNavigation /> */}
 			<div className="min-h-screen flex-auto flex flex-col">
-				<Header />
+				{/* <Header /> */}
 				{children}
 			</div>
 		</div>

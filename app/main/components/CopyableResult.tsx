@@ -17,56 +17,66 @@ const CopyableResult: React.FC = () => {
 	const [typeAddText, setTypeAddText] = useState<string>('');
 
 	useEffect(() => {
-		// 	// 객체를 [key, value] 쌍의 배열로 변환
-		const entries = Object.entries(test);
+		// `test` 객체의 키-값 쌍을 정렬된 배열로 변환
+		const sortedEntries = Object.entries(test).sort(([, a], [, b]) => b - a);
 
-		// value 값에 따라 배열을 정렬
-		const sortedEntries = entries.sort(
-			([, valueA], [, valueB]) => valueB - valueA,
-		);
-
-		const sortedResult = sortedEntries.reduce((acc, cur, i) => {
-			let addStr = `${cur[0].split('_')[1]}(${String(cur[1])})`;
-			if (i === 0) return acc + addStr;
-
-			if (cur[1] < sortedEntries[i - 1][1]) {
-				return `${acc} > ${addStr}`;
-			}
-
-			if (cur[1] === sortedEntries[i - 1][1]) {
-				return `${acc} = ${addStr}`;
-			}
-			return acc + addStr;
-		}, '');
-		// setTypeAddText
+		// 정렬된 결과를 문자열로 변환
+		const sortedResult = sortedEntries
+			.map((entry, i, arr) => {
+				const [key, value] = entry;
+				const prefix =
+					i > 0
+						? value < arr[i - 1][1]
+							? ' > '
+							: value === arr[i - 1][1]
+								? ' = '
+								: ''
+						: '';
+				return `${prefix}${key.split('_')[1]}(${value})`;
+			})
+			.join('');
 		setText(sortedResult);
-		const dataByType: TestResultByType[] = [];
-		// dataByType.
-		const dataBySurvive = test.TYPE_1 + test.TYPE_8 + test.TYPE_9;
-		dataByType.push({ type: 'survive', kor: '장', data: dataBySurvive });
-		const dataByEmotion = test.TYPE_2 + test.TYPE_3 + test.TYPE_4;
-		dataByType.push({ type: 'emotion', kor: '가슴', data: dataByEmotion });
-		const dataByBrain = test.TYPE_5 + test.TYPE_6 + test.TYPE_7;
-		dataByType.push({ type: 'brain', kor: '머리', data: dataByBrain });
-		const sortedDataByType = dataByType.sort((a, b) => b.data - a.data);
-		const resultByType = sortedDataByType.reduce((acc, cur, idx) => {
-			const resultString = `${cur.kor}(${cur.data})`;
-			if (idx === 0) return acc + resultString;
-			if (cur.data < sortedDataByType[idx - 1].data) {
-				return `${acc} > ${resultString}`;
-			}
-			if (cur.data === sortedDataByType[idx - 1].data) {
-				return `${acc} = ${resultString}`;
-			}
-			return acc + resultString;
-		}, '');
-		setTypeAddText(resultByType);
-	}, [test]); // 의존성 배열에 `test`를 넣습니다.
 
-	// eslint-disable-next-line no-undef
+		// TestResultByType 데이터를 생성하고 정렬
+		const dataByType: TestResultByType[] = [
+			{
+				type: 'survive',
+				kor: '장',
+				data: test.TYPE_1 + test.TYPE_8 + test.TYPE_9,
+			},
+			{
+				type: 'emotion',
+				kor: '가슴',
+				data: test.TYPE_2 + test.TYPE_3 + test.TYPE_4,
+			},
+			{
+				type: 'brain',
+				kor: '머리',
+				data: test.TYPE_5 + test.TYPE_6 + test.TYPE_7,
+			},
+		].sort((a, b) => b.data - a.data);
+
+		// 정렬된 TestResultByType 데이터를 문자열로 변환
+		const resultByType = dataByType
+			.map((item, idx, arr) => {
+				const prefix =
+					idx > 0
+						? item.data < arr[idx - 1].data
+							? ' > '
+							: item.data === arr[idx - 1].data
+								? ' = '
+								: ''
+						: '';
+				return `${prefix}${item.kor}(${item.data})`;
+			})
+			.join('');
+		setTypeAddText(resultByType);
+	}, [test]);
+
 	const [pressTimer, setPressTimer] = useState<NodeJS.Timeout | null>(null);
 
 	const textAreaRef = useRef<HTMLDivElement>(null);
+
 	const handleCopy = async () => {
 		if (textAreaRef.current) {
 			try {
