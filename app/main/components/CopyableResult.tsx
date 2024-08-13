@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Textarea } from '@material-tailwind/react';
 import { IconButton } from '@material-tailwind/react';
 import { testAtom } from '@/atom/testAtom';
 import { useAtom } from 'jotai';
@@ -12,7 +11,6 @@ interface TestResultByType {
 
 const CopyableResult: React.FC = () => {
 	const [test] = useAtom(testAtom);
-
 	const [text, setText] = useState<string>('');
 	const [typeAddText, setTypeAddText] = useState<string>('');
 
@@ -75,18 +73,20 @@ const CopyableResult: React.FC = () => {
 
 	const [pressTimer, setPressTimer] = useState<NodeJS.Timeout | null>(null);
 
-	const textAreaRef = useRef<HTMLDivElement>(null);
+	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
 	const handleCopy = async () => {
 		if (textAreaRef.current) {
 			try {
-				await navigator.clipboard.writeText(textAreaRef.current.innerText);
+				// textarea의 value를 사용하여 클립보드에 복사
+				await navigator.clipboard.writeText(textAreaRef.current.value);
 				alert('Text copied to clipboard!');
 			} catch (err) {
 				console.error('Failed to copy: ', err);
 			}
 		}
 	};
+
 	const handleTouchStart = () => {
 		const timer = setTimeout(() => {
 			if (textAreaRef.current) {
@@ -100,7 +100,7 @@ const CopyableResult: React.FC = () => {
 					alert('Text copied to clipboard!');
 				}
 			}
-		}, 800); // 800ms 동안 길게 눌렀을 때 복사 동작 수행
+		}, 800); // 400ms 동안 길게 눌렀을 때 복사 동작 수행
 
 		setPressTimer(timer);
 	};
@@ -129,15 +129,16 @@ const CopyableResult: React.FC = () => {
 				</IconButton>
 			</div>
 			<div className="p-4">
-				<p
+				<textarea
 					ref={textAreaRef}
 					onTouchStart={handleTouchStart}
 					onTouchEnd={handleTouchEnd}
 					onTouchCancel={handleTouchCancel}
-				>
-					{text}
-				</p>
-				<p>{typeAddText}</p>
+					readOnly // Make the textarea non-editable
+					value={`${text}\n\n${typeAddText}`} // Add line breaks between text and typeAddText
+					className="resize-none bg-transparent border-none p-2 h-auto text-gray-700 w-full  focus:outline-none focus:ring-0"
+					rows={4} // Adjust the height as needed
+				/>
 			</div>
 		</div>
 	);
