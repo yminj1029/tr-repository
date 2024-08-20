@@ -7,7 +7,7 @@ import DetailButton from './components/DetailButton';
 export default function Main() {
 	const route = useRouter();
 	const navigateToTestResult = () => {
-		// route.push('/test-result');
+		route.push('/test-result');
 	};
 	return (
 		<main className="flex  flex-col items-center p-12">
@@ -30,10 +30,10 @@ export default function Main() {
 			<div className="w-full mb-8">
 				<CopyableResult />
 			</div>
-			{/* <div className="w-full flex flex-col items-start gap-2 mb-8">
+			<div className="w-full flex flex-col items-start gap-2 mb-8">
 				<span>Click the button for more details.</span>
 				<DetailButton onButtonClick={navigateToTestResult} />
-			</div> */}
+			</div>
 		</main>
 	);
 }
