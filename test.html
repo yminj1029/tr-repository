@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Radial Chart Example</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        svg {
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <svg width="600" height="600"></svg>
+    <script>
+        const width = 600;
+        const height = 600;
+        const radius = Math.min(width, height) / 4;
+
+        // 중심을 설정합니다.
+        const center = { x: width / 2, y: height / 2 };
+
+        // // 동일한 반경의 방사선 데이터
+        const dataSameRadius = Array.from({ length: 4 }, (_, i) => ({
+            angle: i * (Math.PI * 2 / 4), // 0, 90, 180, 270도
+            radius: radius // 동일한 반경 길이 300 으로 동일...
+        }));
+
+        // Radial Line Generator 정의
+        const radialLine = d3.radialLine()
+            .radius(d => d.radius)
+            .angle(d => d.angle)
+            .curve(d3.curveLinearClosed);
+
+        // SVG 요소를 설정합니다.
+        const svg = d3.select("svg")
+            .attr("width", width)
+            .attr("height", height)
+
+        // SVG에 방사선 추가
+        svg.append("g")
+            .attr("transform", `translate(${center.x},${center.y})`) // 중심 위치 조정
+            .append("path")
+            .datum(dataSameRadius.concat(dataSameRadius[0])) // 마지막 점을 첫 점으로 추가하여 닫힌 경로를 만듭니다
+            .attr("d", radialLine)
+            .attr("fill", "none")
+            .attr("stroke", "blue")
+            .attr("stroke-width", 2);
+
+
+        // 각 점을 시각화하기 위한 원
+        svg.selectAll("circle")
+            .data(dataSameRadius)
+            .enter().append("circle")
+            .attr("transform", `translate(${center.x},${center.y})`)
+            .attr("cx", d => d.radius * Math.cos(d.angle)) // X좌표 계산
+            .attr("cy", d => -d.radius * Math.sin(d.angle)) // Y좌표 계산
+            .attr("r", 5)
+            .attr("fill", "red");
+
+        // 중심점 표시 (선택사항)
+        svg.append("circle")
+            .attr("transform", `translate(${center.x},${center.y})`)
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", 2)
+            .attr("fill", "black");
+
+
+
+    </script>
+</body>
+
+</html>
