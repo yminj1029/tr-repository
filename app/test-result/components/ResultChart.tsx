@@ -1,30 +1,50 @@
 import React from 'react';
 import { Group } from '@visx/group';
-import letterFrequency, {
-	LetterFrequency,
-} from '@visx/mock-data/lib/mocks/letterFrequency';
 import { scaleLinear } from '@visx/scale';
 import { Point } from '@visx/point';
 import { Line, LineRadial } from '@visx/shape';
 
-const orange = '#ff9933';
-export const pumpkin = '#f5810c';
+interface chartData {
+	category: string,
+	score: number
+}
+const blue = '#3399ff';
+export const bluePoint = '#3333ff';
 const silver = '#d9d9d9';
-export const background = '#FAF7E9';
+// export const background = '#FFFFF';
+export const background = '#FFFFFF';
 
 const degrees = 360;
-const data = letterFrequency.slice(2, 12);
 
-const y = (d: LetterFrequency) => d.frequency;
+//실제 데이터 값(나중에 atom에 있는 값을 꺼내와야함)
+const data = [
+	{ category: '1', score: 12 },
+	{ category: '2', score: 32 },
+	{ category: '3', score: 22 },
+	{ category: '4', score: 19 },
+	{ category: '5', score: 33 },
+	{ category: '6', score: 22 },
+	{ category: '7', score: 12 },
+	{ category: '8', score: 10 },
+	{ category: '9', score: 13 },
+];
 
+
+const setYScore = (d: chartData) => d.score;
+
+// 방사선을 그리기 위해 필요한 영역 : angle(각도)를 계산한다.
+// 필요한 데이터가 홀수이므로 
 const genAngles = (length: number) =>
 	[...new Array(length + 1)].map((_, i) => ({
 		angle:
 			i * (degrees / length) + (length % 2 === 0 ? 0 : degrees / length / 2),
 	}));
 
+
 const genPoints = (length: number, radius: number) => {
+	// 360도/9 => step당 40도
 	const step = (Math.PI * 2) / length;
+	console.log("check math", step, radius)
 	return [...new Array(length)].map((_, i) => ({
 		x: radius * Math.sin(i * step),
 		y: radius * Math.cos(i * step),
@@ -51,6 +71,7 @@ function genPolygonPoints<Datum>(
 			res += `${xVal},${yVal} `;
 			return res;
 		});
+	console.log("pointString", pointString);
 
 	return { points, pointString };
 }
@@ -67,7 +88,7 @@ export type RadarProps = {
 export default function TestResult({
 	width,
 	height,
-	levels = 5,
+	levels = 9,
 	margin = defaultMargin,
 }: RadarProps) {
 	const xMax = width - margin.left - margin.right;
@@ -79,20 +100,22 @@ export default function TestResult({
 		domain: [degrees, 0],
 	});
 
+	// 최댓값을 45로 고정(domain)
 	const yScale = scaleLinear<number>({
 		range: [0, radius],
-		domain: [0, Math.max(...data.map(y))],
+		domain: [0, 45],
 	});
 
 	const webs = genAngles(data.length);
 	const points = genPoints(data.length, radius);
-	const polygonPoints = genPolygonPoints(data, d => yScale(d) ?? 0, y);
+	const polygonPoints = genPolygonPoints(data, d => yScale(d) ?? 0, setYScore);
 	const zeroPoint = new Point({ x: 0, y: 0 });
 
 	return width < 10 ? null : (
 		<svg width={width} height={height}>
 			<rect fill={background} width={width} height={height} rx={14} />
 			<Group top={height / 2 - margin.top} left={width / 2}>
+				{/* 방사선 영역 */}
 				{[...new Array(levels)].map((_, i) => (
 					<LineRadial
 						key={`web-${i}`}
@@ -116,9 +139,9 @@ export default function TestResult({
 				))}
 				<polygon
 					points={polygonPoints.pointString}
-					fill={orange}
+					fill={blue}
 					fillOpacity={0.3}
-					stroke={orange}
+					stroke={blue}
 					strokeWidth={1}
 				/>
 				{polygonPoints.points.map((point, i) => (
@@ -127,7 +150,7 @@ export default function TestResult({
 						cx={point.x}
 						cy={point.y}
 						r={4}
-						fill={pumpkin}
+						fill={bluePoint}
 					/>
 				))}
 			</Group>

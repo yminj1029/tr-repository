@@ -1,11 +1,21 @@
 'use client';
-import ParentSize from '@visx/responsive/lib/components/ParentSize';
+import { useScreenSize } from '@visx/responsive';
+
+
 import ResultChart from './components/ResultChart';
 
+// import { withScreenSize, WithScreenSizeProvidedProps } from '@visx/responsive';
+
+
 export default function page() {
+
+	const { width, height } = useScreenSize({ debounceTime: 150 })
+	console.log('gg', width, height);
+
 	return (
-		<ParentSize>
-			{({ width, height }) => <ResultChart width={width} height={height} />}
-		</ParentSize>
+		<div>
+			<div>hello</div>
+			<ResultChart width={width} height={height} />
+		</div>
 	);
 }
