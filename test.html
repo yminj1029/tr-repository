@@ -23,10 +23,10 @@
         // 중심을 설정합니다.
         const center = { x: width / 2, y: height / 2 };
 
-        // // 동일한 반경의 방사선 데이터
-        const dataSameRadius = Array.from({ length: 4 }, (_, i) => ({
-            angle: i * (Math.PI * 2 / 4), // 0, 90, 180, 270도
-            radius: radius // 동일한 반경 길이 300 으로 동일...
+        // 동일한 반경의 방사선 데이터 (각도 6개로 구분)
+        const dataSameRadius = Array.from({ length: 5 }, (_, i) => ({
+            angle: i * (Math.PI * 2 / 5), // 0, 60, 120, 180, 240, 300 도
+            radius: radius // 동일한 반경 길이
         }));
 
         // Radial Line Generator 정의
@@ -35,42 +35,48 @@
             .angle(d => d.angle)
             .curve(d3.curveLinearClosed);
 
-        // SVG 요소를 설정합니다.
-        const svg = d3.select("svg")
+        // SVG 요소를 설정합니다. 그리고 Group화 했음!
+        const svgGroup = d3.select("svg")
             .attr("width", width)
             .attr("height", height)
+            .append("g")
+            .attr("transform", `translate(${center.x},${center.y})`); // 중심 위치 조정
 
-        // SVG에 방사선 추가
-        svg.append("g")
-            .attr("transform", `translate(${center.x},${center.y})`) // 중심 위치 조정
-            .append("path")
-            .datum(dataSameRadius.concat(dataSameRadius[0])) // 마지막 점을 첫 점으로 추가하여 닫힌 경로를 만듭니다
+        // 방사형 경로 추가
+        svgGroup.append("path")
+            .datum(dataSameRadius)
             .attr("d", radialLine)
             .attr("fill", "none")
             .attr("stroke", "blue")
             .attr("stroke-width", 2);
 
-
         // 각 점을 시각화하기 위한 원
-        svg.selectAll("circle")
+        svgGroup.selectAll("circle")
             .data(dataSameRadius)
             .enter().append("circle")
-            .attr("transform", `translate(${center.x},${center.y})`)
-            .attr("cx", d => d.radius * Math.cos(d.angle)) // X좌표 계산
-            .attr("cy", d => -d.radius * Math.sin(d.angle)) // Y좌표 계산
+            .attr("cx", d => d.radius * Math.cos(d.angle - Math.PI / 2)) // X좌표 계산
+            .attr("cy", d => d.radius * Math.sin(d.angle - Math.PI / 2)) // Y좌표 계산
             .attr("r", 5)
             .attr("fill", "red");
 
         // 중심점 표시 (선택사항)
-        svg.append("circle")
-            .attr("transform", `translate(${center.x},${center.y})`)
+        svgGroup.append("circle")
             .attr("cx", 0)
             .attr("cy", 0)
             .attr("r", 2)
             .attr("fill", "black");
 
-
-
+        // 원점에서 각 꼭지점까지 선 연결
+        svgGroup.selectAll("line")
+            .data(dataSameRadius)
+            .enter()
+            .append("line")
+            .attr("x1", 0)
+            .attr("y1", 0)
+            .attr("x2", d => d.radius * Math.cos(d.angle - Math.PI / 2))
+            .attr("y2", d => d.radius * Math.sin(d.angle - Math.PI / 2))
+            .attr("stroke", "black")
+            .attr("stroke-width", 2);
     </script>
 </body>
 
