@@ -10,7 +10,7 @@ import ResultChart from './components/ResultChart';
 export default function page() {
 
 	const { width, height } = useScreenSize({ debounceTime: 150 })
-	console.log('gg', width, height);
+
 
 	return (
 		<div>
