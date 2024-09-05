@@ -2,7 +2,8 @@
 import { useScreenSize } from '@visx/responsive';
 
 
-import ResultChart from './components/ResultChart';
+import ReultRadarChart from './components/ReultRadarChart';
+import ResultBarChart from './components/ResultBarChart';
 
 // import { withScreenSize, WithScreenSizeProvidedProps } from '@visx/responsive';
 
@@ -15,7 +16,8 @@ export default function page() {
 	return (
 		<div>
 			<div>hello</div>
-			<ResultChart width={width} height={height} />
+			<ResultBarChart width={width} height={height} />
+			<ReultRadarChart width={width} height={height} />
 		</div>
 	);
 }

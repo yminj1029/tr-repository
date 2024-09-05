@@ -9,9 +9,10 @@ import { Test, testAtom } from '@/atom/testAtom';
 import { useAtom } from 'jotai';
 
 const blue = '#3399ff';
-export const bluePoint = '#3333ff';
+const bluePoint = '#3333ff';
 const silver = '#e6e6e6';
-export const background = '#FFFFFF';
+const silverText = '#989898';
+const background = '#FFFFFF';
 
 const degrees = Math.PI * 2;
 const legend = [
@@ -85,7 +86,7 @@ export type RadarProps = {
 	margin?: { top: number; right: number; bottom: number; left: number };
 };
 
-export default function TestResult({
+export default function ReultRadarChart({
 	width,
 	height,
 	margin = defaultMargin,
@@ -148,7 +149,7 @@ export default function TestResult({
 						x={genWebsPoints(angle, radius + 16).x}
 						y={genWebsPoints(angle, radius + 16).y}
 						fontSize={12}
-						fill={blue}
+						fill={silverText}
 						textAnchor="middle"
 					>
 						{legend[i].category}

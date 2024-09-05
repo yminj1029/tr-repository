@@ -19,15 +19,15 @@ export interface typeNumberData {
 
 // 기본 값이 있는 atom 생성
 export const testAtom = atom<Test>({
-	TYPE_1: 0,
-	TYPE_2: 0,
-	TYPE_3: 0,
-	TYPE_4: 0,
-	TYPE_5: 0,
-	TYPE_6: 0,
-	TYPE_7: 0,
-	TYPE_8: 0,
-	TYPE_9: 0,
+	TYPE_1: 10,
+	TYPE_2: 20,
+	TYPE_3: 30,
+	TYPE_4: 10,
+	TYPE_5: 20,
+	TYPE_6: 30,
+	TYPE_7: 10,
+	TYPE_8: 20,
+	TYPE_9: 30,
 });
 
 testAtom.debugLabel = 'testAtom';

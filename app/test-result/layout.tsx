@@ -7,9 +7,9 @@ export default function TestResultLayout({
 }>) {
 	return (
 		<div className="flex h-screen flex-col">
-			<div>title</div>
+			{/* <div>title</div>
 			<div>name</div>
-			<div>기타 정보</div>
+			<div>기타 정보</div> */}
 			{/* chart 1 막대*/}
 			{/* 주 애니어 정보 */}
 			{/* chart 2  레이더*/}
