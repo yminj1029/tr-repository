@@ -12,7 +12,7 @@ const blue = '#3399ff';
 const bluePoint = '#3333ff';
 const silver = '#e6e6e6';
 const silverText = '#989898';
-const background = '#FFFFFF';
+
 
 const degrees = Math.PI * 2;
 const legend = [
@@ -115,7 +115,6 @@ export default function ReultRadarChart({
 
 	return width < 10 ? null : (
 		<svg width={width} height={height}>
-			<rect fill={background} width={width} height={height} rx={14} />
 			<Group top={height / 2 - margin.top} left={width / 2}>
 				{/* 레이더 차트 webs 영역 start */}
 				{[...new Array(levels)].map((_, i) => (
